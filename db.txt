@@ -1,0 +1,1 @@
+mongodb+srv://admin:Wrecker5150$@cluster0-ckejc.mongodb.net/test?retryWrites=true&w=majority
