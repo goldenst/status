@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Jobs = require("../models/Job");
 
+
 // @Route   GET api/jobs
 // @desc    Register a User
 // @access  public

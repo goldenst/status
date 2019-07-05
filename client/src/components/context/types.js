@@ -1,0 +1,9 @@
+export const ADD_JOB = 'ADD_JOB';
+export const DELETE_JOB = 'DELETE_JOB';
+export const SET_CURRENT = 'SET_CURRENT';
+export const CLEAR_CURRENT = 'CLEAR_CURRENT';
+export const UPDATE_JOB = 'UPDATE_JOB';
+export const FILTER_JOB = 'FILTER_JOB';
+export const CLEAR_FILTER = 'CLEAR_FILTER';
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
