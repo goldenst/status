@@ -9,20 +9,19 @@ const Jobs = () => {
 
   return (
     <Fragment>
-    <table>
-    <thead>
-      <td width="5%">Repair order</td>
-      <td width="5%">Vehicle</td>
-      <td width="5%">Work Requested</td>
-      <td width="5%">Parts</td>
-      <td width="5%">Tech</td>
-      <td width="5%">Status</td>
-      <td width="5%">Promised</td>
-      <td width="5%">Priorty</td>
-      <td width="10%"></td>
-
-    </thead>
-    </table>
+      <div className="card-body text-primary mb-1 pd-1">
+        <div className="">
+          <div className="row">
+            <div className="col-1">Ro#</div>
+            <div className="col-2">Vehicle</div>
+            <div className="col-3">Work</div>
+            <div className="col-1">Parts</div>
+            <div className="col-1">Tech</div>
+            <div className="col-2">status</div>
+            <div className="col-2" />
+          </div>
+        </div>
+      </div>
 
       {jobs.map(job => (
         <JobItem key={job.id} job={job} />

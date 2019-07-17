@@ -6,16 +6,36 @@ import {
   UPDATE_JOB,
   FILTER_JOB,
   CLEAR_FILTER
-} from '../types';
+} from "../types";
 
-export default (state, action ) => {
-  switch(action.type) {
+export default (state, action) => {
+  switch (action.type) {
     case ADD_JOB:
       return {
         ...state,
         jobs: [...state.jobs, action.payload]
       };
-      default:
-        return state;
+    case DELETE_JOB:
+      return {
+        ...state,
+        jobs: state.jobs.filter(job => job.id !== action.payload)
+      };
+    case SET_CURRENT:
+      return {
+        ...state,
+        current: action.payload
+      };
+    case CLEAR_CURRENT:
+      return {
+        ...state,
+        current: null
+      };
+    case UPDATE_JOB:
+      return {
+        ...state,
+        jobs: state.jobs.map(job => job.id === action.payload.id ? action.payload : job)
+      }
+    default:
+      return state;
   }
-}
+};

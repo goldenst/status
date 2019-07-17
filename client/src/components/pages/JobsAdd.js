@@ -1,13 +1,14 @@
-import React from 'react'
-import JobForm from '../jobs/JobForm';
+import React from "react";
+import JobForm from "../jobs/JobForm";
 
 const JobsAdd = () => {
   return (
-    <div>
-      <h1>Add Job</h1>
-      <JobForm />
+    <div className="container">
+      <div className="card">
+        <JobForm />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default JobsAdd
+export default JobsAdd;

@@ -20,6 +20,7 @@ const JobState = props => {
   const initalState = {
     jobs: [
       {
+        id: 1,
         order: "23234",
         vehicle: "88 Chevy pu 1500",
         jobdesc: "Water Pump, Radiator, Timming Belt",
@@ -30,6 +31,7 @@ const JobState = props => {
         priorty: 2
       },
       {
+        id: 2,
         order: "23456",
         vehicle: "92 Chevy pu 1500",
         jobdesc: ", Timming Belt",
@@ -40,6 +42,7 @@ const JobState = props => {
         priorty: 1
       },
       {
+        id: 3,
         order: "25856",
         vehicle: "92 Ford Escort",
         jobdesc: " Timming Belt",
@@ -49,7 +52,8 @@ const JobState = props => {
         status: "Wait for Auth",
         priorty: 3
       }
-    ]
+    ],
+      current: null
   };
   
   const [state, dispatch] = useReducer(JobReducer, initalState);
@@ -72,36 +76,32 @@ const JobState = props => {
   };
 
   // Add Contact
-  const addJob = async jobs => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-
-    try {
-      const res = await axios.post("/api/jobs", jobs, config);
-
-      dispatch({
-        type: ADD_JOB,
-        payload: res.data
-      });
-    } catch (err) {
-      dispatch({
-        type: JOB_ERROR,
-        payload: err.response
-      });
-    }
-  };
+  const addJob =  job => {
+    job.id = uuid.v4();
+    dispatch({ type: ADD_JOB, payload: job})
+  }
 
   // delete job
+  const deleteJob = id => {
+    dispatch({ type: DELETE_JOB, payload: id})
+  }
 
   //set current job
 
+  const setCurrent = job => {
+    dispatch({ type: SET_CURRENT, payload: job})
+  }
+
   //clear current
 
-  //update job
+  const clearCurrent = () => {
+    dispatch({ type: CLEAR_CURRENT})
+  }
 
+  //update job
+  const updateJob = job => {
+    dispatch({ type: UPDATE_JOB, payload: job})
+  }
   //filter job
 
   // clear filter
@@ -110,7 +110,13 @@ const JobState = props => {
     <JobContext.Provider
       value={{
         jobs: state.jobs,
-        addJob
+        current: state.current,
+
+        addJob,
+        deleteJob,
+        setCurrent,
+        clearCurrent,
+        updateJob
       }}
     >
       {props.children}

@@ -15,9 +15,10 @@ const Login = () => {
   
 
   return (
+    <div className='container'>
     <div className="card ">
       <div className="card-body text-center">
-        <div className="col-6">
+        <div className="col">
           <h3>Login</h3>
           <form onSubmit={onSubmit}>
             <div className="form-group">
@@ -50,6 +51,7 @@ const Login = () => {
           </form>
         </div>
       </div>
+    </div>
     </div>
   );
 };
