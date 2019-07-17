@@ -4,6 +4,12 @@ import JobContext from '../context/job/JobContext';
 const JobForm = () => {
 
   const jobContext = useContext(JobContext);
+  
+  const onChange = e =>
+    setJob({
+      ...job,
+      [e.target.name]: e.target.value
+    });
 
   const [job, setJob] = useState({
     order: "",
@@ -17,11 +23,7 @@ const JobForm = () => {
 
   const { order, vehicle, jobdesc, parts, tech, promised, status } = job;
 
-  const onChange = e =>
-    setJob({
-      ...job,
-      [e.target.name]: e.target.value
-    });
+  
 
     const onSubmit = e => {
       e.preventDefault();

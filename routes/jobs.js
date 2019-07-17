@@ -1,16 +1,21 @@
 const express = require("express");
 const router = express.Router();
+const auth = require('../middleware/auth');
+const { check, validator } = require("express-validator");
 
 const Jobs = require("../models/Job");
+const User = require("../models/User");
+
 
 
 // @Route   GET api/jobs
 // @desc    Register a User
-// @access  public
-router.get("/", async (req, res) => {
+// @access  private
+// @Status  Works
+router.get("/", auth, async (req, res) => {
   try {
-    const jobs = await Jobs.find().sort({
-      promised: 1
+    const jobs = await Jobs.find({ user: req.user.id }).sort({
+      priorty: 1
     });
     res.json(jobs);
   } catch (err) {
@@ -20,8 +25,9 @@ router.get("/", async (req, res) => {
 });
 
 // @Route   POST api/jobs
-// @desc    dreate or updatre job
+// @desc    Create new job
 // @access  private
+// @Status  Works
 router.post("/", (req, res) => {
   const jobs = new Jobs({
     order: req.body.order,
@@ -30,7 +36,8 @@ router.post("/", (req, res) => {
     parts: req.body.parts,
     tech: req.body.tech,
     promised: req.body.promised,
-    status: req.body.status
+    status: req.body.status,
+    priorty: req.body.priorty
   });
   //console.log(req.body);
   Jobs.create(jobs)
@@ -41,9 +48,9 @@ router.post("/", (req, res) => {
 // @Route   PUT api/jobs/:id
 // @desc    update job
 // @access  private
-
+// @Status  Works
 router.put("/:id", async (req, res) => {
-  const { order, vehicle, jobdesc, parts, tech, promised, status } = req.body;
+  const { order, vehicle, jobdesc, parts, tech, promised, status, priorty } = req.body;
 
   const jobFields = {};
   if (order) jobFields.order = order;
@@ -53,6 +60,7 @@ router.put("/:id", async (req, res) => {
   if (tech) jobFields.tech = tech;
   if (promised) jobFields.promised = promised;
   if (status) jobFields.status = status;
+  if (priorty) jobFields.priorty = priorty;
 
   try {
     let jobs = await Jobs.findById(req.params.id);
@@ -75,7 +83,7 @@ router.put("/:id", async (req, res) => {
 // @Route   DELETE api/jobs/:id
 // @desc    delete job
 // @access  private
-
+// @Status  Works
 router.delete("/:id", async (req, res) => {
   try {
     const jobs = await Jobs.findById(req.params.id);

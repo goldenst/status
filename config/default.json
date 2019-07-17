@@ -1,3 +1,4 @@
 {
-  "mongoUri" : "mongodb+srv://jwelch:Catfish@cluster0-ckejc.mongodb.net/test?retryWrites=true&w=majority"
+  "mongoUri" : "mongodb+srv://admin:Wrecker5150$@cluster0-yrsb1.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "StatusBoard"
 }

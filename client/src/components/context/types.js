@@ -7,3 +7,5 @@ export const FILTER_JOB = 'FILTER_JOB';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
 export const SET_ALERT = 'SET_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
+export const JOB_ERROR = 'JOB_ERROR';
+export const GET_JOB = 'GET_JOB';

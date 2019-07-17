@@ -4,7 +4,7 @@ import JobForm from '../jobs/JobForm';
 const JobsAdd = () => {
   return (
     <div>
-      <h1>Job Add</h1>
+      <h1>Add Job</h1>
       <JobForm />
     </div>
   )

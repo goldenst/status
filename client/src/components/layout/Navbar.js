@@ -11,10 +11,19 @@ const Navbar = (title, icon) => {
       </h1>
       <ul>
       <li>
-        <Link to='/'>Home</Link>
+      <Link to='/'>Home</Link>
+    </li>
+    <li>
+      <Link to='/login'>Login</Link>
+    </li>
+      <li>
+        <Link to='/dashboard'>Dashboard</Link>
       </li>
       <li>
         <Link to='/add'>Add Job</Link>
+      </li>
+      <li>
+        <Link to='/admin'>Admin</Link>
       </li>
       </ul>
     </div>

@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 const JobsSchema = new Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
+  },
   invoice: {
     type: String
   },
@@ -23,6 +27,10 @@ const JobsSchema = new Schema({
   },
   status: {
     type: String
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
 
