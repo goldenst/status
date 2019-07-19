@@ -106,7 +106,7 @@ const JobForm = () => {
             onChange={onChange}
           />
           <input
-            type="date"
+            type="datetime-local"
             placeholder="Promised By"
             name="promised"
             value={promised}

@@ -14,15 +14,15 @@ const Jobs = () => {
           <div className="row">
             <div className="col-1">Ro#</div>
             <div className="col-2">Vehicle</div>
-            <div className="col-3">Work</div>
+            <div className="col-2">Work</div>
             <div className="col-1">Parts</div>
             <div className="col-1">Tech</div>
-            <div className="col-2">status</div>
+            <div className="col-1">status</div>
+            <div className="col-1">Promised</div>
             <div className="col-2" />
           </div>
         </div>
       </div>
-
       {jobs.map(job => (
         <JobItem key={job.id} job={job} />
       ))}

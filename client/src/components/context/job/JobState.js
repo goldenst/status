@@ -26,9 +26,10 @@ const JobState = props => {
         jobdesc: "Water Pump, Radiator, Timming Belt",
         parts: "Back Ordered",
         tech: " ED ",
-        promised: "2019-07-20T07:00:00.000Z",
-        status: "50% done",
-        priorty: 2
+        promised: "1976-04-19T12:59-0500",
+        status: "sold",
+        priorty: 2,
+        diag: true
       },
       {
         id: 2,
@@ -36,8 +37,8 @@ const JobState = props => {
         vehicle: "92 Chevy pu 1500",
         jobdesc: ", Timming Belt",
         parts: "here",
-        tech: " , Joe",
-        promised: "2019-07-20T07:00:00.000Z",
+        tech: " Joe",
+        promised: "Monday 5:00pm",
         status: "wait for tech",
         priorty: 1
       },
@@ -48,7 +49,7 @@ const JobState = props => {
         jobdesc: " Timming Belt",
         parts: "NA",
         tech: "Mark",
-        promised: "2019-07-20T07:00:00.000Z",
+        promised: "July 29 5:00pm",
         status: "Wait for Auth",
         priorty: 3
       }
