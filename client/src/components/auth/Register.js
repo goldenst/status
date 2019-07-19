@@ -1,10 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import AlertContext from "../context/alert/AlertContext";
 import AuthContext from "../context/auth/AuthContext";
-import { REGISTER_FAIL } from "../context/types";
+//import { REGISTER_FAIL } from "../context/types";
 
-
-const Register = (props) => {
+const Register = props => {
   const alertContext = useContext(AlertContext);
   const authContext = useContext(AuthContext);
 
@@ -13,8 +12,8 @@ const Register = (props) => {
   const { register, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
-    if(isAuthenticated) {
-      props.history.push('/dashboard')
+    if (isAuthenticated) {
+      props.history.push("/dashboard");
     }
 
     //@  Alert Not Working !!!!
@@ -22,7 +21,7 @@ const Register = (props) => {
       setAlert(error, "danger");
       clearErrors();
     }
-  }, [error, isAuthenticated, props.history]);
+  }, [error, setAlert, clearErrors, isAuthenticated, props.history]);
 
   const [user, setUser] = useState({
     name: "",

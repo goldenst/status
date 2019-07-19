@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import JobContext from "../context/job/JobContext";
+import { Link, Redirect } from "react-router-dom";
 
-const JobForm = () => {
+const JobForm = (props) => {
   const jobContext = useContext(JobContext);
 
   const { addJob, current, clearCurrent, updateJob } = jobContext;
@@ -53,23 +54,29 @@ const JobForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    if(current === null) {
+    if (current === null) {
       addJob(job);
+    
     } else {
       updateJob(job);
+     
     }
-    
+  
   };
 
   const clearAll = () => {
     clearCurrent();
-  }
+  };
 
   return (
     <div className="container">
+      <Link to="/dashboard" className="byn btn-link">
+        {" "}
+        <i className="fas fa-arrow-circle-left" /> Back to Job Board
+      </Link>
       <div className="card">
         <form onSubmit={onSubmit}>
-          <h2 className="text-primary"> {current ? 'Edit Job' : 'Add Job'}</h2>
+          <h2 className="text-primary"> {current ? "Edit Job" : "Add Job"}</h2>
           <input
             type="text"
             placeholder="Ro #"
@@ -106,7 +113,7 @@ const JobForm = () => {
             onChange={onChange}
           />
           <input
-            type="datetime-local"
+            type="text"
             placeholder="Promised By"
             name="promised"
             value={promised}
@@ -128,12 +135,18 @@ const JobForm = () => {
           />
           <input
             type="submit"
-            value={current ? 'Edit Job' : 'Add Job'}
+            value={current ? "Edit Job" : "Add Job"}
             className="btn btn-primary btn-block"
           />
         </form>
       </div>
-      {current && <div><button className='btn btn-light btn-block'onClick={clearAll} >Clear</button> </div>}
+      {current && (
+        <div>
+          <button className="btn btn-light btn-block" onClick={clearAll}>
+            Clear
+          </button>{" "}
+        </div>
+      )}
     </div>
   );
 };

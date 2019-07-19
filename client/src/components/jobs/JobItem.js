@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import JobContext from "../context/job/JobContext";
 import Moment from 'react-moment';
@@ -9,13 +9,11 @@ const JobItem = ({ job }) => {
   const jobContext = useContext(JobContext);
   const { deleteJob, setCurrent, clearCurrent } = jobContext;
 
-  const { id, order, vehicle, jobdesc, parts, tech, promised, status, diag } = job;
-  const dateToFormat = promised;
-  
+  const { _id, order, vehicle, jobdesc, parts, tech, promised, status, diag } = job;
   
 
   const onDelete = () => {
-    deleteJob(id);
+    deleteJob(_id);
     clearCurrent();
   };
 
@@ -29,7 +27,7 @@ const JobItem = ({ job }) => {
           <div className="col-1">{parts}</div>
           <div className="col-1">{tech}</div>
           <div className="col-1">{status}{' '}{diag ? <i className="fas fa-heartbeat fa-lg"></i> : null }</div>
-          <div className="col-1"><Moment  format="ddd/MM/DD HH:mm">{dateToFormat}</Moment></div>
+          <div className="col-1">{promised}</div>
           <div className="col-2">
             <button
               onClick={onDelete}

@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import uuid from "uuid";
+//import uuid from "uuid";
 import JobContext from "./JobContext";
 import JobReducer from "./JobReducer";
 import axios from "axios";
@@ -10,57 +10,22 @@ import {
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_JOB,
-  FILTER_JOB,
-  CLEAR_FILTER,
   JOB_ERROR,
-  GET_JOB
+  GET_JOB,
+  CLEAR_JOB
 } from "../types";
 
 const JobState = props => {
   const initalState = {
-    jobs: [
-      {
-        id: 1,
-        order: "23234",
-        vehicle: "88 Chevy pu 1500",
-        jobdesc: "Water Pump, Radiator, Timming Belt",
-        parts: "Back Ordered",
-        tech: " ED ",
-        promised: "1976-04-19T12:59-0500",
-        status: "sold",
-        priorty: 2,
-        diag: true
-      },
-      {
-        id: 2,
-        order: "23456",
-        vehicle: "92 Chevy pu 1500",
-        jobdesc: ", Timming Belt",
-        parts: "here",
-        tech: " Joe",
-        promised: "Monday 5:00pm",
-        status: "wait for tech",
-        priorty: 1
-      },
-      {
-        id: 3,
-        order: "25856",
-        vehicle: "92 Ford Escort",
-        jobdesc: " Timming Belt",
-        parts: "NA",
-        tech: "Mark",
-        promised: "July 29 5:00pm",
-        status: "Wait for Auth",
-        priorty: 3
-      }
-    ],
-      current: null
+    jobs: [],
+    current: null,
+    error: null
   };
-  
+
   const [state, dispatch] = useReducer(JobReducer, initalState);
 
   // Get Contacts
-  const getJob = async () => {
+  const getJobs = async () => {
     try {
       const res = await axios.get("/api/jobs");
 
@@ -77,32 +42,83 @@ const JobState = props => {
   };
 
   // Add Contact
-  const addJob =  job => {
-    job.id = uuid.v4();
-    dispatch({ type: ADD_JOB, payload: job})
-  }
+  const addJob = async job => {
+    const config = {
+      headers: {
+        "content-type": "application/json"
+      }
+    };
+
+    try {
+      const res = await axios.post("/api/jobs", job, config);
+
+      dispatch({
+        type: ADD_JOB,
+        payload: res.data,
+        
+      });
+      
+    } catch (err) {
+      dispatch({
+        type: JOB_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
 
   // delete job
-  const deleteJob = id => {
-    dispatch({ type: DELETE_JOB, payload: id})
-  }
+  const deleteJob = async id => {
+    try {
+      await axios.delete(`/api/jobs/${id}`);
+
+      dispatch({ type: DELETE_JOB, payload: id });
+    } catch (err) {
+      dispatch({
+        type: JOB_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
+
+  //Clear jobs
+  const clearJobs = () => {
+    dispatch({ type: CLEAR_JOB });
+  };
 
   //set current job
 
   const setCurrent = job => {
-    dispatch({ type: SET_CURRENT, payload: job})
-  }
+    dispatch({ type: SET_CURRENT, payload: job });
+  };
 
   //clear current
 
   const clearCurrent = () => {
-    dispatch({ type: CLEAR_CURRENT})
-  }
+    dispatch({ type: CLEAR_CURRENT });
+  };
 
   //update job
-  const updateJob = job => {
-    dispatch({ type: UPDATE_JOB, payload: job})
-  }
+  const updateJob = async job => {
+    const config = {
+      headers: {
+        "content-type": "application/json"
+      }
+    };
+
+    try {
+      const res = await axios.put(`/api/jobs/${job._id}`, job, config);
+
+      dispatch({
+        type: UPDATE_JOB,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: JOB_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
   //filter job
 
   // clear filter
@@ -112,12 +128,14 @@ const JobState = props => {
       value={{
         jobs: state.jobs,
         current: state.current,
-
+        error: state.error,
+        getJobs,
         addJob,
         deleteJob,
         setCurrent,
         clearCurrent,
-        updateJob
+        updateJob,
+        clearJobs
       }}
     >
       {props.children}

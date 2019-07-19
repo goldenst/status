@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
-const JobsSchema = new Schema({
+const JobSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'
   },
-  invoice: {
+  order: {
     type: String
   },
   vehicle: {
@@ -23,10 +23,13 @@ const JobsSchema = new Schema({
     type: String
   },
   promised: {
-    type: Date
+    type: String
   },
   status: {
     type: String
+  },
+  priorty: {
+    type: Number
   },
   date: {
     type: Date,
@@ -34,4 +37,4 @@ const JobsSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model("jobs", JobsSchema);
+module.exports = mongoose.model("job", JobSchema);

@@ -89,13 +89,13 @@ const AuthState = props => {
     } catch (err) {
       dispatch({
         type: LOGIN_FAIL,
-        payload: err.responce.data.msg
+        payload: err.response.data.msg
       });
     }
   };
 
   // Logout
-  const logout = () => console.log("Logout User");
+  const logout = () => dispatch({ type: LOGOUT });
   // clear Errors
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 

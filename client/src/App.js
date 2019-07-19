@@ -7,6 +7,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Dashboard from "./components/dashboard/Dashboard";
 import setAuthToken from './utils/setAuthToken';
+import PrivateRoute from './components/routing/privateRoute';
 import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import JobState from "./components/context/job/JobState";
@@ -30,9 +31,9 @@ const App = () => {
               <Alerts />
                 <Switch>
                   <Route exact path="/" component={Home} />
-                  <Route exact path="/add" component={JobsAdd} />
-                  <Route exact path="/dashboard" component={Dashboard} />
-                  <Route exact path="/admin" component={Admin} />
+                  <PrivateRoute exact path="/add" component={JobsAdd} />
+                  <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                  <PrivateRoute exact path="/admin" component={Admin} />
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/register" component={Register} />
                 </Switch>

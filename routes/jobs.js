@@ -1,23 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const auth = require('../middleware/auth');
+const auth = require("../middleware/auth");
 const { check, validator } = require("express-validator");
 
-const Jobs = require("../models/Job");
+const Job = require("../models/Job");
 const User = require("../models/User");
 
-
-
 // @Route   GET api/jobs
-// @desc    Register a User
+// @desc    get users jobs
 // @access  private
 // @Status  Works
-router.get("/", auth, async (req, res) => {
+router.get("/",  async (req, res) => {
   try {
-    const jobs = await Jobs.find({ user: req.user.id }).sort({
-      priorty: 1
+    const job = await Job.find().sort({
+      priorty: -1
     });
-    res.json(jobs);
+    res.json(job);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -25,24 +23,43 @@ router.get("/", auth, async (req, res) => {
 });
 
 // @Route   POST api/jobs
-// @desc    Create new job
+// @desc    Add new job
 // @access  private
-// @Status  Works
-router.post("/", (req, res) => {
-  const jobs = new Jobs({
-    order: req.body.order,
-    vehicle: req.body.vehicle,
-    jobdesc: req.body.jobdesc,
-    parts: req.body.parts,
-    tech: req.body.tech,
-    promised: req.body.promised,
-    status: req.body.status,
-    priorty: req.body.priorty
-  });
-  //console.log(req.body);
-  Jobs.create(jobs)
-    .then(dbjobs => res.json(dbjobs))
-    .catch(err => res.json(err));
+// @Status  broken  
+
+router.post("/",  async (req, res) => {
+  const {
+    order,
+    vehicle,
+    jobdesc,
+    parts,
+    tech,
+    promised,
+    status,
+    priorty
+    
+  } = req.body;
+
+  try {
+    const newJob = new Job({
+      order,
+      vehicle,
+      jobdesc,
+      parts,
+      tech,
+      promised,
+      status,
+      priorty,
+      
+    });
+
+    const job = await newJob.save();
+
+    res.json(job)
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('server error 61')
+  }
 });
 
 // @Route   PUT api/jobs/:id
@@ -50,7 +67,16 @@ router.post("/", (req, res) => {
 // @access  private
 // @Status  Works
 router.put("/:id", async (req, res) => {
-  const { order, vehicle, jobdesc, parts, tech, promised, status, priorty } = req.body;
+  const {
+    order,
+    vehicle,
+    jobdesc,
+    parts,
+    tech,
+    promised,
+    status,
+    priorty
+  } = req.body;
 
   const jobFields = {};
   if (order) jobFields.order = order;
@@ -63,17 +89,17 @@ router.put("/:id", async (req, res) => {
   if (priorty) jobFields.priorty = priorty;
 
   try {
-    let jobs = await Jobs.findById(req.params.id);
+    let job = await Job.findById(req.params.id);
 
-    if (!jobs) return res.status(404).json({ msg: "Job not found" });
+    if (!job) return res.status(404).json({ msg: "Job not found" });
 
-    jobs = await Jobs.findByIdAndUpdate(
+    job = await Job.findByIdAndUpdate(
       req.params.id,
       { $set: jobFields },
       { new: true }
     );
 
-    res.json(jobs)
+    res.json(job);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -85,11 +111,15 @@ router.put("/:id", async (req, res) => {
 // @access  private
 // @Status  Works
 router.delete("/:id", async (req, res) => {
-  try {
-    const jobs = await Jobs.findById(req.params.id);
 
-    await jobs.remove();
+  try {
+
+   let job = await Job.findById(req.params.id);
+
+    await Job.findByIdAndRemove(req.params.id);
+
     res.json("Job deleted");
+
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

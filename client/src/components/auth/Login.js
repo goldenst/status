@@ -20,7 +20,7 @@ const Login = props => {
       setAlert(error, "danger");
       clearErrors();
     }
-  }, [error, isAuthenticated, props.history]);
+  }, [error,clearErrors, setAlert, isAuthenticated, props.history]);
 
   const [user, setUser] = useState({
     email: "",

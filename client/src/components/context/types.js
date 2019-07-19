@@ -16,4 +16,5 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const GET_JOB = "GET_JOB";
+export const CLEAR_JOB = "CLEAR_JOB";
 export const JOB_ERROR = "JOB_ERROR";
